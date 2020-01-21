@@ -1,3 +1,3 @@
-cd C:\Users\coda1\Documents\GitHistory
-
+%~d1
+cd "%~p1"
 expo start
