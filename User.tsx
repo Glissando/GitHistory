@@ -1,4 +1,5 @@
-import { Component } from "react";
+import React, { Component, Fragment } from "react";
+import { StyleSheet, Text, View, Image } from "react-native";
 
 export default class User {
     username: string;
@@ -8,7 +9,12 @@ export default class User {
     }
 }
 
-export class Repository extends Component {
+export class Repository extends Component<{repository: Repo}> {
+    propTypes: {
+        repository: Repo,
+        name: string,
+    };
+
     componentDidMount() {
 
     }
@@ -17,9 +23,46 @@ export class Repository extends Component {
         if(!this.props) {
             return "no repo set";
         }
-        return( "hey" );
+        
+        return(
+            <View style={styles.repoStyle}>
+                <Text style={styles.h1}>{ this.props.repository.name }</Text>
+                <Text style={styles.h1}>Stars: { this.props.repository.stargazers_count }</Text>
+                <Text style={styles.h1}>Watchers: { this.props.repository.watchers_count }</Text>
+            </View>
+        );
     }
 }
+
+export class Avatar extends Component<{repository: Repo}> {
+    render() {
+        return (
+        <View>
+            <Text>Hello there { this.props.repository.owner.login }!</Text>
+            <Image source={{ uri: this.props.repository.owner.avatar_url }}
+                style ={{width: 100, height: 100}} />
+        </View>
+        );
+    }
+}
+
+const styles = StyleSheet.create({
+  
+    repoStyle: {
+        flex: 1,
+        backgroundColor: '#D89CF6',
+        margin: 5,
+        borderRadius: 5,
+        
+        shadowRadius: 5,
+    },
+    h1: {
+        color: '#fff',
+    },
+    avatar: {
+
+    }
+  });
 
 export interface Repo {
     owner: Owner,
@@ -47,4 +90,3 @@ export interface Owner {
     followers_url: string,
     following_url: string,
 }
-  

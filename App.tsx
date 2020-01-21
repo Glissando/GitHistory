@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { StyleSheet, Text, View, ScrollView, Image } from 'react-native';
-import { Repo, Owner } from './User';
+import { Repo, Owner, Repository, Avatar } from './User';
 
 export default class App extends Component {
   render() {
@@ -16,13 +16,13 @@ export default class App extends Component {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#fff',
+    backgroundColor: '#3E206D',
     alignItems: 'center',
     justifyContent: 'center',
     marginTop: 50,
   },
 
-  itemStyle: {
+  repoStyle: {
     flex: 1,
     backgroundColor: '#fff',
 
@@ -59,10 +59,13 @@ class GitGraph extends Component {
     }
     
     return (
-    <ScrollView>
-      <Text>Hello there { this.state.repos[0].owner.login }!</Text>
-      <Image source={{ uri: this.state.repos[0].owner.avatar_url }} />
-    </ScrollView>
+      <ScrollView>
+          <Avatar repository={this.state.repos[0]}></Avatar>
+          
+          {this.state.repos.map(repo => (
+              <Repository key={repo.name} repository={repo} />
+          ))}
+      </ScrollView>
     );
   }
 }
