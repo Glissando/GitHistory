@@ -1,12 +1,17 @@
 import React, { Component } from 'react';
-import { StyleSheet, Text, View, ScrollView, Image } from 'react-native';
+import { TextInput, StyleSheet, Text, View, ScrollView, Image } from 'react-native';
 import { Repo, Owner, Repository, Avatar } from './User';
 
 export default class App extends Component {
   render() {
+    const [value, onChangeText] = React.useState('Useless Placeholder');
     return(
       <View style={styles.container}>
-        <Text>This is an application made to learn React!</Text>
+        <TextInput
+      style={{ height: 40, borderColor: 'gray', borderWidth: 1 }}
+      onChangeText={text => onChangeText(text)}
+      value={value}
+      />
         <GitGraph></GitGraph>
       </View>
     );

@@ -50,7 +50,7 @@ const styles = StyleSheet.create({
   
     repoStyle: {
         flex: 1,
-        backgroundColor: '#D89CF6',
+        backgroundColor: '#916dd5',
         margin: 5,
         borderRadius: 5,
         
@@ -60,7 +60,8 @@ const styles = StyleSheet.create({
         color: '#fff',
     },
     avatar: {
-
+        backgroundColor: '#916dd5',
+        margin: 3,
     }
   });
 
