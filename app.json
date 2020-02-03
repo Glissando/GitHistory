@@ -24,7 +24,15 @@
       "**/*"
     ],
     "ios": {
-      "supportsTablet": true
-    }
+      "supportsTablet": true,
+      "bundleIdentifier": "com.warden.GitHistory",
+      "buildNumber": "1.0.0"
+    },
+    "android": {
+      "package": "com.warden.GitHistory",
+      "versionCode": 1
+    },
+    "description": "A mobile application for viewing Github statistics",
+    "githubUrl": "https://github.com/Glissando/GitHistory"
   }
 }
