@@ -1,0 +1,7 @@
+{
+    "welcome": [
+        "Hello there ${name}",
+        "Looking good ${name}",
+        "A new person named ${name} is here"
+    ]
+}
