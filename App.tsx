@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { Alert, Button, TextInput, StyleSheet, Text, View, ScrollView, Image, TouchableWithoutFeedback } from 'react-native';
-import { Repo, Owner, Repository, Avatar } from './User';
+import { NotFoundError, Repo, Owner, Repository, Avatar, InvalidError } from './User';
 
 
 export default function App() {
@@ -60,7 +60,7 @@ class GitGraph extends Component<{name: string}> {
     
   }
 
-  state = {text: "", repos: Array<Repo>()};
+  state = {text: "", repos: Array<Repo>(), validUsername: true};
 
   render() {
     /*
@@ -75,9 +75,22 @@ class GitGraph extends Component<{name: string}> {
           <Button
             title="Search"
             onPress={() => {
-              loadUserData(this.props.name, this);
+              let regex : RegExp = new RegExp(/^[a-z\d](?:[a-z\d]|-(?=[a-z\d])){0,38}$/i);
+              if(regex.test(this.props.name)) {
+                loadUserData(this.props.name, this);
+              }
+              else {
+                this.setState(previousSate => (
+                  { text: this.state.text, repos: this.state.repos, validUsername: false }
+                ));
+              }
             }}
           />
+          
+          {
+            !this.state.validUsername && <InvalidError></InvalidError>
+          }
+
           {
           (this.state.repos[0]) &&
           <Avatar repository={this.state.repos[0]}></Avatar>
@@ -88,7 +101,7 @@ class GitGraph extends Component<{name: string}> {
           ))}
           
           {
-            (!this.state.repos[0]) && <Text>User does not Exist</Text>
+            (!this.state.repos[0]) && this.state.validUsername && <NotFoundError></NotFoundError>
           }
           
       </ScrollView>
@@ -107,7 +120,7 @@ function loadUserData(user: string, component: Component) {
         let reposObject: Array<Repo> = responseJson;
         
         component.setState(previousSate => (
-          { text: JSON.stringify(responseJson), repos: reposObject }
+          { text: JSON.stringify(responseJson), repos: reposObject, validUsername: true }
         ));
         component.forceUpdate();
       })
