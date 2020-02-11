@@ -1,7 +1,7 @@
 {
     "welcome": [
-        "Hello there ${name}",
-        "Looking good ${name}",
-        "A new person named ${name} is here"
+        "Hello there {0}",
+        "Looking good {0}",
+        "A new person named {0} is here"
     ]
 }
