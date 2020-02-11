@@ -1,5 +1,7 @@
 import React, { Component, Fragment } from "react";
 import { StyleSheet, Text, View, Image } from "react-native";
+import "./Greeting"
+import Greeting from "./Greeting";
 
 let iconSize : number = 100;
 
@@ -45,6 +47,7 @@ export class Avatar extends Component<{repository: Repo}> {
         return (
         <View style={styles.avatar}>
             <Text style={styles.avatarText}>Hello there { this.props.repository.owner.login }!</Text>
+            
             <Image source={{ uri: this.props.repository.owner.avatar_url }}
                 style ={styles.icon} />
         </View>
@@ -86,8 +89,7 @@ const styles = StyleSheet.create({
         color: '#fff',
         fontSize: 18,
         margin: 6,
-        marginRight: 10,
-        marginLeft: 10,
+        textAlign: 'center'
     },
     h1: {
         color: '#fff',
@@ -118,12 +120,13 @@ const styles = StyleSheet.create({
         marginLeft: '25%'
     },
     avatar: {
-        marginLeft: '25%',
+        
         marginBottom: 20,
         marginTop: 20,
         color: 'white',
     },
     icon: {
+        marginLeft: '32%',
         borderRadius: iconSize / 2,
         width: iconSize,
         height: iconSize

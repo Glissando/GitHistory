@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import { Alert, Button, TextInput, StyleSheet, Text, View, ScrollView, Image, TouchableWithoutFeedback } from 'react-native';
 import { NotFoundError, Repo, Owner, Repository, Avatar, InvalidError } from './User';
 
-
 export default function App() {
     const [value, onChangeText] = React.useState('Glissando');    
     let input: string = 'Glissando';
@@ -41,6 +40,7 @@ const styles = StyleSheet.create({
   textField: {
     color: 'white',
     height: 40, 
+    width: '70%',
     borderColor: 'gray',
     backgroundColor: '#BE8ABF',
     borderWidth: 1, 
@@ -60,7 +60,7 @@ class GitGraph extends Component<{name: string}> {
     
   }
 
-  state = {text: "", repos: Array<Repo>(), validUsername: true};
+  state = {text: "", repos: Array<Repo>(), validUsername: true, finishedLoading: false};
 
   render() {
     /*
@@ -69,8 +69,10 @@ class GitGraph extends Component<{name: string}> {
     }*/
 
     //loadUserData(this.props.name, this);
-
+    let finishedLoading: boolean = this.state.finishedLoading;
+    let validUsername: boolean = this.state.validUsername;
     return (
+      
       <ScrollView>
           <Button
             title="Search"
@@ -81,18 +83,18 @@ class GitGraph extends Component<{name: string}> {
               }
               else {
                 this.setState(previousSate => (
-                  { text: this.state.text, repos: this.state.repos, validUsername: false }
+                  { text: this.state.text, repos: this.state.repos, validUsername: false, finishedLoading: finishedLoading }
                 ));
               }
             }}
           />
           
           {
-            !this.state.validUsername && <InvalidError></InvalidError>
+            !validUsername && <InvalidError></InvalidError>
           }
 
           {
-          (this.state.repos[0]) &&
+          this.state.repos[0] &&
           <Avatar repository={this.state.repos[0]}></Avatar>
           }
           
@@ -101,7 +103,7 @@ class GitGraph extends Component<{name: string}> {
           ))}
           
           {
-            (!this.state.repos[0]) && this.state.validUsername && <NotFoundError></NotFoundError>
+            finishedLoading && !this.state.repos[0] && validUsername && <NotFoundError></NotFoundError>
           }
           
       </ScrollView>
@@ -120,7 +122,7 @@ function loadUserData(user: string, component: Component) {
         let reposObject: Array<Repo> = responseJson;
         
         component.setState(previousSate => (
-          { text: JSON.stringify(responseJson), repos: reposObject, validUsername: true }
+          { text: JSON.stringify(responseJson), repos: reposObject, validUsername: true, finishedLoading: true }
         ));
         component.forceUpdate();
       })
