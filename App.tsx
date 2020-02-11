@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { Alert, Button, TextInput, StyleSheet, Text, View, ScrollView, Image, TouchableWithoutFeedback } from 'react-native';
-import { NotFoundError, Repo, Owner, Repository, Avatar, InvalidError } from './User';
+import { Repo, Owner, Repository, Avatar } from './components/user/User';
+import { NotFoundError, InvalidError } from './components/error/Error';
 
 export default function App() {
     const [value, onChangeText] = React.useState('Glissando');    
