@@ -1,7 +1,6 @@
 import React, { Component, Fragment } from "react";
 import { StyleSheet, Text, View, Image } from "react-native";
-import "./Greeting"
-import Greeting from "./Greeting";
+import Reply from '../greeting/Greeting';
 
 let iconSize : number = 100;
 
