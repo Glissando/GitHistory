@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { Alert, Button, TextInput, StyleSheet, Text, View, ScrollView, Image, TouchableWithoutFeedback } from 'react-native';
 import { Repo, Owner, Repository, Avatar } from './components/user/User';
 import { NotFoundError, InvalidError } from './components/error/Error';
+import ProgressBar from './components/progressbar/ProgressBar';
 
 export default function App() {
     const [value, onChangeText] = React.useState('Glissando');    
@@ -30,6 +31,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
     marginTop: 0,
+    width: '100%'
   },
 
   repoStyle: {
@@ -79,7 +81,7 @@ class GitGraph extends Component<{name: string}> {
             title="Search"
             onPress={() => {
               let regex : RegExp = new RegExp(/^[a-z\d](?:[a-z\d]|-(?=[a-z\d])){0,38}$/i);
-              if(regex.test(this.props.name)) {
+              if(finishedLoading && regex.test(this.props.name)) {
                 loadUserData(this.props.name, this);
               }
               else {
