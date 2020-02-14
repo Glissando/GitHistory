@@ -11,7 +11,7 @@ class Reply extends Component<{name: string}> {
     }
 
     randomRange(min: number, max: number): number {
-        return RandomNumber = Math.floor(Math.random() * max) + min;
+        return Math.floor(Math.random() * max) + min;
     }
 }
 
