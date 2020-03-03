@@ -1,6 +1,8 @@
 import React, { Component, Fragment } from "react";
-import { StyleSheet, Text, View, Image } from "react-native";
+import { StyleSheet, Text, View, Image, TouchableNativeFeedback, Alert } from "react-native";
 import Reply from '../greeting/Greeting';
+import {NavigationContainer} from '@react-navigation/native';
+import {createStackNavigator} from '@react-navigation/stack';
 
 let iconSize : number = 100;
 
@@ -12,10 +14,11 @@ export default class User {
     }
 }
 
-export class Repository extends Component<{repository: Repo}> {
+export class Repository extends Component<{repository: Repo, navigation: any}> {
     propTypes: {
         repository: Repo,
         name: string,
+        data: Repo
     };
 
     componentDidMount() {
@@ -30,6 +33,9 @@ export class Repository extends Component<{repository: Repo}> {
         let name : string = this.props.repository.name;
         
         return(
+            <TouchableNativeFeedback
+        onPress={this._onPressButton.bind(this)}
+        background={TouchableNativeFeedback.SelectableBackground()}>
             <View style={styles.repoStyle}>
                 <Text style={styles.h1}>{ name.length > 24 ? name.slice(0,20) + '...' : name }</Text>
                 <View style={styles.flexText}>
@@ -37,7 +43,14 @@ export class Repository extends Component<{repository: Repo}> {
                     <Text style={styles.h2}>Watchers: { this.props.repository.watchers_count }</Text>
                 </View>
             </View>
+            </TouchableNativeFeedback>
         );
+    }
+
+    _onPressButton() {
+        if(this.props){
+            this.props.navigation.navigate('Project', {name: 'Projects', repository: this.props.repository})
+        }
     }
 }
 
